@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Option Box Example</title>
+  <style>
+    .option-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .option-box {
+      width: calc(50% - 10px);
+      margin-bottom: 10px;
+    }
+    .clear-button {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .add-arg-button {
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Option Box Example</h1>
+  
+  <div id="optionContainer" class="option-container">
+    <!-- Option boxes will be dynamically added here -->
+  </div>
+  
+  <button onclick="createOptionBox()">+ Add Arg</button>
+  
+  <div id="result" class="result"></div>
+  
+  <script>
+    let optionCount = 1;
+    
+    function createOptionBox() {
+      const optionContainer = document.getElementById('optionContainer');
+      
+      const optionBox = document.createElement('div');
+      optionBox.className = 'option-box';
+      
+      const optionInput1 = document.createElement('input');
+      optionInput1.type = 'text';
+      optionInput1.placeholder = 'Enter Option 1';
+      
+      const optionSelect1 = document.createElement('select');
+      const option1 = document.createElement('option');
+      option1.value = 'true';
+      option1.text = 'True';
+      const option2 = document.createElement('option');
+      option2.value = 'false';
+      option2.text = 'False';
+      
+      optionSelect1.add(option1);
+      optionSelect1.add(option2);
+      
+      const optionInput2 = document.createElement('input');
+      optionInput2.type = 'text';
+      optionInput2.placeholder = 'Enter Option 2';
+      
+      const optionSelect2 = document.createElement('select');
+      const option3 = document.createElement('option');
+      option3.value = 'true';
+      option3.text = 'True';
+      const option4 = document.createElement('option');
+      option4.value = 'false';
+      option4.text = 'False';
+      
+      optionSelect2.add(option3);
+      optionSelect2.add(option4);
+      
+      const optionSelect3 = document.createElement('select');
+      const option5 = document.createElement('option');
+      option5.value = 'constant';
+      option5.text = 'Constant';
+      const option6 = document.createElement('option');
+      option6.value = 'argument';
+      option6.text = 'Argument';
+      const option7 = document.createElement('option');
+      option7.value = 'and';
+      option7.text = 'And';
+      const option8 = document.createElement('option');
+      option8.value = 'or';
+      option8.text = 'Or';
+      
+      optionSelect3.add(option5);
+      optionSelect3.add(option6);
+      optionSelect3.add(option7);
+      optionSelect3.add(option8);
+      optionSelect3.addEventListener('change', () => {
+        if (optionSelect3.value === 'and') {
+          createOptionBox();
+        }
+      });
+      
+      const clearButton = document.createElement('button');
+      clearButton.className = 'clear-button';
+      clearButton.innerText = 'X';
+      clearButton.addEventListener('click', () => {
+        optionContainer.removeChild(optionBox);
+      });
+      
+      optionBox.appendChild(optionInput1);
+      optionBox.appendChild(optionSelect1);
+      optionBox.appendChild(optionInput2);
+      optionBox.appendChild(optionSelect2);
+      optionBox.appendChild(optionSelect3);
+      optionBox.appendChild(clearButton);
+      optionContainer.appendChild(optionBox);
+      
+      optionCount++;
+    }
+    
+    function getResult() {
+      const optionSelect2 = document.querySelectorAll('.option-box select')[1];
+      const resultElement = document.getElementById('result');
+      
+      resultElement.innerText = `Result: ${optionSelect2.value}`;
+    }
+  </script>
+</body>
+</html>
